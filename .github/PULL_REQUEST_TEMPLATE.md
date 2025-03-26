@@ -11,3 +11,7 @@
 > Describe the changes included in the merge request.
 
 -
+
+### Testing & Verification
+
+> How is this tested? Are unit tests included? Are there manual steps that need to be performed by a reviewer or tester?
