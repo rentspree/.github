@@ -1,6 +1,6 @@
 name: "Tech Debt"
 description: "Document technical debt that should be addressed"
-labels: ["type/tech-debt", "status/triage"]
+labels: ["tech-debt", "status/triage"]
 body:
   - type: markdown
     attributes:

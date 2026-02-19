@@ -1,0 +1,72 @@
+name: Sync Labels
+
+on:
+  push:
+    branches: [main]
+    paths: [labels.yml]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Get non-archived repos
+        id: repos
+        env:
+          GH_TOKEN: ${{ secrets.LABEL_SYNC_TOKEN }}
+        run: |
+          gh repo list ${{ github.repository_owner }} \
+            --limit 200 \
+            --no-archived \
+            --json name \
+            --jq '.[].name' > repos.txt
+          echo "count=$(wc -l < repos.txt | tr -d ' ')" >> "$GITHUB_OUTPUT"
+
+      - name: Install github-labeler
+        run: npm install -g github-labeler
+
+      - name: Sync labels to all repos
+        env:
+          GH_TOKEN: ${{ secrets.LABEL_SYNC_TOKEN }}
+          GITHUB_TOKEN: ${{ secrets.LABEL_SYNC_TOKEN }}
+        run: |
+          OWNER="${{ github.repository_owner }}"
+          FAILED=0
+          SYNCED=0
+          SKIPPED=0
+
+          while IFS= read -r REPO; do
+            # Skip the .github repo itself
+            if [ "$REPO" = ".github" ]; then
+              continue
+            fi
+
+            echo "::group::Syncing $OWNER/$REPO"
+            if github-labeler \
+              --repo "$OWNER/$REPO" \
+              --labels labels.yml \
+              --token "$GH_TOKEN" 2>&1; then
+              SYNCED=$((SYNCED + 1))
+            else
+              echo "::warning::Failed to sync labels to $OWNER/$REPO"
+              FAILED=$((FAILED + 1))
+            fi
+            echo "::endgroup::"
+
+            # Rate limit: small delay between repos
+            sleep 0.5
+          done < repos.txt
+
+          echo "## Label Sync Summary" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Synced: $SYNCED" >> "$GITHUB_STEP_SUMMARY"
+          echo "- Failed: $FAILED" >> "$GITHUB_STEP_SUMMARY"
+
+          if [ "$FAILED" -gt 0 ]; then
+            echo "::warning::$FAILED repos failed to sync"
+          fi
