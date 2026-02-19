@@ -108,6 +108,12 @@
 - name: "claude-code-assisted"
   color: "d4c5f9"
   description: "PR created or assisted by Claude Code"
+- name: "copilot-assisted"
+  color: "1f6feb"
+  description: "PR created or assisted by GitHub Copilot"
+- name: "gemini-assisted"
+  color: "4285f4"
+  description: "PR created or assisted by Google Gemini"
 
 # Team
 - name: "team-ada"
