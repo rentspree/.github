@@ -7,9 +7,8 @@
 #     repo-local for library repos and excluded from this org-wide taxonomy
 #   - ADR labels (adr:proposed, etc.) are repo-local to rentspree-architecture
 #
-# Sync: A GitHub Actions workflow in this repo propagates these labels to all
-# non-archived repos. The sync is additive — it creates/updates labels listed here
-# but does NOT delete repo-local labels not in this file.
+# Sync: Org default labels are managed via GitHub org settings UI.
+# Update Settings > Repository defaults > Labels when modifying this file.
 
 # Type (simple names — reuses GitHub defaults where possible)
 - name: "bug"

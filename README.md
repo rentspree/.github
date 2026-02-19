@@ -8,8 +8,7 @@ Organization-level GitHub defaults for [RentSpree](https://github.com/rentspree)
 |------|---------|
 | `.github/ISSUE_TEMPLATE/*.yml` | Issue form templates (bug, feature, tech debt, operational) |
 | `.github/ISSUE_TEMPLATE/config.yml` | Issue template chooser configuration |
-| `.github/workflows/sync-labels.yml` | Label sync workflow |
-| `labels.yml` | Canonical label taxonomy for all repositories |
+| `labels.yml` | Canonical label taxonomy (reference for org default labels) |
 | `CODEOWNERS` | Default code ownership |
 | `CONTRIBUTING.md` | Contributing guidelines |
 
@@ -46,11 +45,9 @@ Four issue form templates are available org-wide:
 | AI | simple | `ai-candidate`, `ai-assigned`, `claude-code-assisted` |
 | Team | simple | `team-ada`, `team-infradevex`, `team-magenta`, etc. |
 
-### Label Sync
+### Managing Labels
 
-Labels are synced to all non-archived repos via the `sync-labels.yml` workflow. The sync is **additive** — it creates or updates labels from `labels.yml` but does **not** delete repo-local labels (e.g., release/semver labels used by library repos).
-
-The sync runs automatically when `labels.yml` changes, or can be triggered manually.
+Org-level default labels are managed through the [GitHub organization settings UI](https://docs.github.com/en/organizations/managing-organization-settings/managing-default-labels-for-repositories-in-your-organization). Default labels are automatically applied to new repositories created in the org. When updating `labels.yml`, also update the org default labels in Settings > Repository defaults > Labels to keep them in sync.
 
 ## Contributing
 
