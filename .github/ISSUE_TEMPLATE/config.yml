@@ -1,8 +1,5 @@
 blank_issues_enabled: false
 contact_links:
-  - name: "Ask in Slack"
-    url: "https://rentspree.slack.com/channels/engineering"
-    about: "For questions or discussions before filing an issue"
-  - name: "Engineering Wiki"
+  - name: "Engineering Documentation"
     url: "https://rentspree.github.io/rentspree-architecture/"
-    about: "Check existing documentation and ADRs"
+    about: "Check existing documentation and architecture decision records"
