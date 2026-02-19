@@ -36,17 +36,41 @@ jobs:
             --jq '.[].name' > repos.txt
           echo "count=$(wc -l < repos.txt | tr -d ' ')" >> "$GITHUB_OUTPUT"
 
-      - name: Install github-labeler
-        run: npm install -g github-labeler
-
       - name: Sync labels to all repos
         env:
           GH_TOKEN: ${{ steps.app-token.outputs.token }}
-          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
           OWNER="${{ github.repository_owner }}"
           FAILED=0
           SYNCED=0
+
+          # Parse labels.yml into arrays (name, color, description)
+          parse_labels() {
+            local name="" color="" desc=""
+            while IFS= read -r line; do
+              case "$line" in
+                "- name: "*)
+                  name="${line#*: }"
+                  name="${name%\"}"
+                  name="${name#\"}"
+                  ;;
+                "  color: "*)
+                  color="${line#*: }"
+                  color="${color%\"}"
+                  color="${color#\"}"
+                  ;;
+                "  description: "*)
+                  desc="${line#*: }"
+                  desc="${desc%\"}"
+                  desc="${desc#\"}"
+                  echo "${name}|${color}|${desc}"
+                  name="" color="" desc=""
+                  ;;
+              esac
+            done < labels.yml
+          }
+
+          LABELS=$(parse_labels)
 
           while IFS= read -r REPO; do
             # Skip the .github repo itself
@@ -55,15 +79,26 @@ jobs:
             fi
 
             echo "::group::Syncing $OWNER/$REPO"
-            if github-labeler \
-              --repo "$OWNER/$REPO" \
-              --labels labels.yml \
-              --token "$GH_TOKEN" 2>&1; then
-              SYNCED=$((SYNCED + 1))
-            else
-              echo "::warning::Failed to sync labels to $OWNER/$REPO"
+
+            REPO_FAILED=false
+            while IFS='|' read -r NAME COLOR DESC; do
+              if ! gh label create "$NAME" \
+                --repo "$OWNER/$REPO" \
+                --color "$COLOR" \
+                --description "$DESC" \
+                --force 2>&1; then
+                echo "::warning::Failed to sync label '$NAME' to $OWNER/$REPO"
+                REPO_FAILED=true
+              fi
+            done <<< "$LABELS"
+
+            if [ "$REPO_FAILED" = true ]; then
+              echo "::warning::Some labels failed to sync to $OWNER/$REPO"
               FAILED=$((FAILED + 1))
+            else
+              SYNCED=$((SYNCED + 1))
             fi
+
             echo "::endgroup::"
 
             # Rate limit: small delay between repos
