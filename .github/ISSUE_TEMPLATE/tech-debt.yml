@@ -1,0 +1,99 @@
+name: "Tech Debt"
+description: "Document technical debt that should be addressed"
+labels: ["tech-debt", "status/triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template to document technical debt — code, architecture, or infrastructure that needs improvement.
+
+  - type: input
+    id: service
+    attributes:
+      label: "Affected Service / Repository"
+      description: "Which service or repo has this tech debt?"
+      placeholder: "e.g., rentspree-web, rentspree-api, rentspree-agent"
+    validations:
+      required: true
+
+  - type: textarea
+    id: current-state
+    attributes:
+      label: "Current State"
+      description: "Describe the current situation and why it's problematic."
+    validations:
+      required: true
+
+  - type: textarea
+    id: desired-state
+    attributes:
+      label: "Desired State"
+      description: "What should the code/architecture look like after addressing this?"
+    validations:
+      required: true
+
+  - type: textarea
+    id: file-paths
+    attributes:
+      label: "Relevant File Paths"
+      description: "List the key files or modules affected."
+      placeholder: |
+        - src/services/example.ts
+        - src/utils/legacy-helper.ts
+    validations:
+      required: false
+
+  - type: textarea
+    id: impact
+    attributes:
+      label: "Impact of Not Addressing"
+      description: "What happens if we don't fix this? (e.g., increased maintenance cost, risk of bugs)"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: "Priority"
+      description: "How urgent is addressing this debt?"
+      options:
+        - "critical — actively causing issues"
+        - "high — blocking future work"
+        - "medium — increasing maintenance burden"
+        - "low — cleanup when convenient"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: "Area"
+      description: "Which area of the system is affected?"
+      options:
+        - frontend
+        - backend
+        - infrastructure
+        - data
+        - integrations
+    validations:
+      required: true
+
+  - type: dropdown
+    id: ai-candidate
+    attributes:
+      label: "AI Delegation Candidate?"
+      description: "Could an AI agent address this tech debt?"
+      options:
+        - "yes — well-scoped refactor"
+        - "maybe — needs refinement"
+        - "no — requires architectural decisions"
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: "Additional Context"
+      description: "Any other relevant information, links, or screenshots."
+    validations:
+      required: false

@@ -1,0 +1,109 @@
+name: "Operational Issue"
+description: "Report an operational or infrastructure issue"
+labels: ["operational", "status/triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Use this template for operational issues — outages, performance degradation, infrastructure problems.
+
+  - type: input
+    id: service
+    attributes:
+      label: "Affected Service / Repository"
+      description: "Which service or infrastructure component is affected?"
+      placeholder: "e.g., rentspree-api, CDN, database, container service"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: severity
+    attributes:
+      label: "Severity"
+      description: "What is the operational impact?"
+      options:
+        - "critical — service outage or data loss"
+        - "high — major degradation affecting users"
+        - "medium — partial degradation, workaround available"
+        - "low — minor issue, no user impact"
+    validations:
+      required: true
+
+  - type: textarea
+    id: description
+    attributes:
+      label: "Issue Description"
+      description: "Describe the operational issue in detail."
+    validations:
+      required: true
+
+  - type: textarea
+    id: impact
+    attributes:
+      label: "Impact"
+      description: "Who/what is affected? How many users? Which environments?"
+    validations:
+      required: true
+
+  - type: textarea
+    id: mitigation
+    attributes:
+      label: "Mitigation / Workaround"
+      description: "Any steps taken or available to reduce impact?"
+    validations:
+      required: false
+
+  - type: textarea
+    id: timeline
+    attributes:
+      label: "Timeline"
+      description: "When did this start? Any relevant timestamps or events?"
+    validations:
+      required: false
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: "Priority"
+      description: "How urgently does this need resolution?"
+      options:
+        - "critical — immediate attention required"
+        - "high — resolve within hours"
+        - "medium — resolve within days"
+        - "low — monitor and address when convenient"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: "Area"
+      description: "Which area is affected?"
+      options:
+        - frontend
+        - backend
+        - infrastructure
+        - data
+        - integrations
+    validations:
+      required: true
+
+  - type: dropdown
+    id: ai-candidate
+    attributes:
+      label: "AI Delegation Candidate?"
+      description: "Could an AI agent help investigate or resolve this?"
+      options:
+        - "yes — clear diagnostic steps"
+        - "maybe — needs human triage first"
+        - "no — requires human judgment"
+    validations:
+      required: false
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: "Additional Context"
+      description: "Links to dashboards, logs, alerts, or related incidents."
+    validations:
+      required: false
