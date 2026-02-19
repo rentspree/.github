@@ -16,7 +16,6 @@ This is a configuration-only repository (no build/lint/test commands). It provid
     tech-debt.yml            # Tech debt issue form
     operational-issue.yml    # Operational/infrastructure issue form
     config.yml               # Issue template chooser config
-labels.yml                   # Canonical label taxonomy
 CODEOWNERS                   # Org-level code owners
 CONTRIBUTING.md              # Contributing guidelines
 README.md                    # Repo overview
@@ -42,35 +41,10 @@ Each `.yml` template has:
 
 ### When Modifying Templates
 
-1. Dropdown options for Priority and Area must stay aligned with `labels.yml`
+1. Dropdown options for Priority and Area must stay aligned with the canonical label taxonomy
 2. Every template auto-applies `type/*` and `status/triage` labels
 3. Keep `id` values stable — they may be referenced by automations
 4. Validate YAML syntax; malformed files silently break the issue chooser
-
-## Working with labels.yml
-
-`labels.yml` defines the canonical label taxonomy.
-
-### Label Entry Format
-
-```yaml
-- name: "category/label-name"
-  color: "hex-without-hash"
-  description: "Short description"
-```
-
-### When Modifying Labels
-
-1. Keep names lowercase with `/` as category separator
-2. Colors are 6-character hex strings (no `#` prefix)
-3. If adding a label that appears in issue template dropdowns, update the corresponding template YAML files too
-4. **Sync to org defaults** — GitHub has no API for org-level default labels, so after modifying `labels.yml`, use the Playwright MCP to sync changes to the org settings UI:
-   - Navigate to `https://github.com/organizations/rentspree/settings/repository-defaults`
-   - Scroll to "Repository labels" section
-   - For new labels: click "New label", fill in name/description/color (prefix color with `#`), click "Create label"
-   - For updated labels: click "Edit" on the label, update fields, save
-   - For removed labels: click "Delete" on the label (confirm if prompted)
-   - Use `browser_run_code` to batch-create labels when adding many at once
 
 ## Repository Conventions
 
@@ -78,3 +52,4 @@ Each `.yml` template has:
 - Files here act as [community health file](https://docs.github.com/en/communities/setting-up-your-project-for-healthy-contributions/creating-a-default-community-health-file) defaults for the entire org
 - Repos that define their own `.github/ISSUE_TEMPLATE/` override these defaults
 - Keep YAML validated and well-commented
+- The canonical label taxonomy and sync workflow live in a private repo
