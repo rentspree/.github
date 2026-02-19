@@ -16,10 +16,18 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Generate GitHub App token
+        id: app-token
+        uses: actions/create-github-app-token@v2
+        with:
+          app-id: ${{ secrets.CICD_APP_ID }}
+          private-key: ${{ secrets.CICD_APP_PRIVATE_KEY }}
+          owner: ${{ github.repository_owner }}
+
       - name: Get non-archived repos
         id: repos
         env:
-          GH_TOKEN: ${{ secrets.LABEL_SYNC_TOKEN }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
           gh repo list ${{ github.repository_owner }} \
             --limit 200 \
@@ -33,13 +41,12 @@ jobs:
 
       - name: Sync labels to all repos
         env:
-          GH_TOKEN: ${{ secrets.LABEL_SYNC_TOKEN }}
-          GITHUB_TOKEN: ${{ secrets.LABEL_SYNC_TOKEN }}
+          GH_TOKEN: ${{ steps.app-token.outputs.token }}
+          GITHUB_TOKEN: ${{ steps.app-token.outputs.token }}
         run: |
           OWNER="${{ github.repository_owner }}"
           FAILED=0
           SYNCED=0
-          SKIPPED=0
 
           while IFS= read -r REPO; do
             # Skip the .github repo itself
