@@ -89,3 +89,11 @@ body:
         - "no — requires architectural decisions"
     validations:
       required: false
+
+  - type: textarea
+    id: additional
+    attributes:
+      label: "Additional Context"
+      description: "Any other relevant information, links, or screenshots."
+    validations:
+      required: false
