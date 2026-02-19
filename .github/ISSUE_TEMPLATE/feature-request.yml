@@ -1,0 +1,91 @@
+name: "Feature Request"
+description: "Propose a new feature or enhancement"
+labels: ["type/feature", "status/triage"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Have an idea for a new feature? Describe the problem and your proposed solution.
+
+  - type: input
+    id: service
+    attributes:
+      label: "Target Service / Repository"
+      description: "Which service or repo would this feature belong to?"
+      placeholder: "e.g., rentspree-web, rentspree-api, rentspree-agent"
+    validations:
+      required: true
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: "Problem Statement"
+      description: "What problem does this feature solve? Why is it needed?"
+    validations:
+      required: true
+
+  - type: textarea
+    id: solution
+    attributes:
+      label: "Proposed Solution"
+      description: "Describe the desired behavior or approach."
+    validations:
+      required: true
+
+  - type: textarea
+    id: acceptance-criteria
+    attributes:
+      label: "Acceptance Criteria"
+      description: "What conditions must be met for this feature to be considered complete?"
+      value: |
+        - [ ]
+        - [ ]
+    validations:
+      required: true
+
+  - type: textarea
+    id: alternatives
+    attributes:
+      label: "Alternatives Considered"
+      description: "Any other approaches you considered?"
+    validations:
+      required: false
+
+  - type: dropdown
+    id: priority
+    attributes:
+      label: "Priority"
+      description: "How urgent is this feature?"
+      options:
+        - "critical — blocking other work"
+        - "high — needed soon"
+        - "medium — nice to have this quarter"
+        - "low — backlog"
+    validations:
+      required: true
+
+  - type: dropdown
+    id: area
+    attributes:
+      label: "Area"
+      description: "Which area of the system does this affect?"
+      options:
+        - frontend
+        - backend
+        - infrastructure
+        - data
+        - integrations
+    validations:
+      required: true
+
+  - type: dropdown
+    id: ai-candidate
+    attributes:
+      label: "AI Delegation Candidate?"
+      description: "Could an AI agent implement this with clear acceptance criteria?"
+      options:
+        - "yes — well-scoped, clear requirements"
+        - "maybe — needs refinement"
+        - "no — requires human judgment"
+    validations:
+      required: false
