@@ -1,6 +1,6 @@
 name: "Operational Issue"
 description: "Report an operational or infrastructure issue"
-labels: ["type/operational", "status/triage"]
+labels: ["operational", "status/triage"]
 body:
   - type: markdown
     attributes:

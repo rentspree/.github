@@ -8,6 +8,7 @@ Organization-level GitHub defaults for [RentSpree](https://github.com/rentspree)
 |------|---------|
 | `.github/ISSUE_TEMPLATE/*.yml` | Issue form templates (bug, feature, tech debt, operational) |
 | `.github/ISSUE_TEMPLATE/config.yml` | Issue template chooser configuration |
+| `.github/workflows/sync-labels.yml` | Label sync workflow |
 | `labels.yml` | Canonical label taxonomy for all repositories |
 | `CODEOWNERS` | Default code ownership |
 | `CONTRIBUTING.md` | Contributing guidelines |
@@ -29,17 +30,27 @@ Four issue form templates are available org-wide:
 
 ## Label Taxonomy
 
-`labels.yml` defines a shared label scheme using slash-prefixed categories:
+`labels.yml` defines a shared label scheme using a hybrid naming convention:
 
-| Prefix | Examples |
-|--------|----------|
-| `priority/` | critical, high, medium, low |
-| `type/` | bug, feature, tech-debt, operational |
-| `area/` | frontend, backend, infrastructure, data, integrations |
-| `severity/` | critical, high, medium, low |
-| `status/` | triage, accepted, in-progress, blocked, wont-fix |
-| `bot/` | md-drift, summary, md-first-gen |
-| `ai-*` | ai-candidate, ai-assigned, claude-code-assisted |
+- **Prefixed** (`key/value`) for multi-value categories where grouping aids filtering
+- **Simple** names for standalone type and AI labels (reuses GitHub defaults)
+
+| Category | Style | Examples |
+|----------|-------|----------|
+| Type | simple | `bug`, `enhancement`, `tech-debt`, `operational` |
+| `priority/` | prefixed | critical, high, medium, low |
+| `area/` | prefixed | frontend, backend, infrastructure, data, integrations |
+| `severity/` | prefixed | critical, high, medium, low |
+| `status/` | prefixed | triage, accepted, in-progress, blocked, wont-fix |
+| `bot/` | prefixed | md-drift, summary, md-first-gen |
+| AI | simple | `ai-candidate`, `ai-assigned`, `claude-code-assisted` |
+| Team | simple | `team-ada`, `team-infradevex`, `team-magenta`, etc. |
+
+### Label Sync
+
+Labels are synced to all non-archived repos via the `sync-labels.yml` workflow. The sync is **additive** — it creates or updates labels from `labels.yml` but does **not** delete repo-local labels (e.g., release/semver labels used by library repos).
+
+The sync runs automatically when `labels.yml` changes, or can be triggered manually.
 
 ## Contributing
 
