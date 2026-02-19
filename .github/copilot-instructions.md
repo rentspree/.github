@@ -51,6 +51,7 @@ All templates include:
 - Names are lowercase, `/` as category separator
 - Colors are 6-character hex (no `#` prefix)
 - New labels must also be added to template dropdowns if applicable
+- After modifying `labels.yml`, org default labels must be updated via the GitHub org settings UI at `https://github.com/organizations/rentspree/settings/repository-defaults` (no API exists for org-level default labels)
 
 ## Conventions
 

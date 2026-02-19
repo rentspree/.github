@@ -64,6 +64,13 @@ Each `.yml` template has:
 1. Keep names lowercase with `/` as category separator
 2. Colors are 6-character hex strings (no `#` prefix)
 3. If adding a label that appears in issue template dropdowns, update the corresponding template YAML files too
+4. **Sync to org defaults** — GitHub has no API for org-level default labels, so after modifying `labels.yml`, use the Playwright MCP to sync changes to the org settings UI:
+   - Navigate to `https://github.com/organizations/rentspree/settings/repository-defaults`
+   - Scroll to "Repository labels" section
+   - For new labels: click "New label", fill in name/description/color (prefix color with `#`), click "Create label"
+   - For updated labels: click "Edit" on the label, update fields, save
+   - For removed labels: click "Delete" on the label (confirm if prompted)
+   - Use `browser_run_code` to batch-create labels when adding many at once
 
 ## Repository Conventions
 
