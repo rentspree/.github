@@ -1,6 +1,6 @@
 name: "Tech Debt"
 description: "Document technical debt that should be addressed"
-labels: ["tech-debt", "status/triage"]
+labels: ["type/tech-debt", "status/triage"]
 body:
   - type: markdown
     attributes:
@@ -87,13 +87,5 @@ body:
         - "yes — well-scoped refactor"
         - "maybe — needs refinement"
         - "no — requires architectural decisions"
-    validations:
-      required: false
-
-  - type: textarea
-    id: additional
-    attributes:
-      label: "Additional Context"
-      description: "Any other relevant information, links, or screenshots."
     validations:
       required: false

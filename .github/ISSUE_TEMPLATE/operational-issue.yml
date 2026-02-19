@@ -1,6 +1,6 @@
 name: "Operational Issue"
 description: "Report an operational or infrastructure issue"
-labels: ["operational", "status/triage"]
+labels: ["type/operational", "status/triage"]
 body:
   - type: markdown
     attributes:
@@ -12,7 +12,7 @@ body:
     attributes:
       label: "Affected Service / Repository"
       description: "Which service or infrastructure component is affected?"
-      placeholder: "e.g., rentspree-api, CDN, database, container service"
+      placeholder: "e.g., rentspree-api, CloudFront, RDS, ECS"
     validations:
       required: true
 

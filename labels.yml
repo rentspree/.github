@@ -1,29 +1,5 @@
 # labels.yml — Canonical label taxonomy for RentSpree GitHub repos
-#
-# Design decisions:
-#   - Prefixed (key/value) for multi-value categories where grouping helps filtering
-#   - Simple names for standalone type and AI labels to reuse existing GitHub defaults
-#   - Release/semver labels (patch, minor, major, release, want-to-release) are
-#     repo-local for library repos and excluded from this org-wide taxonomy
-#   - ADR labels (adr:proposed, etc.) are repo-local to rentspree-architecture
-#
-# Sync: A GitHub Actions workflow in this repo propagates these labels to all
-# non-archived repos. The sync is additive — it creates/updates labels listed here
-# but does NOT delete repo-local labels not in this file.
-
-# Type (simple names — reuses GitHub defaults where possible)
-- name: "bug"
-  color: "d73a4a"
-  description: "Something isn't working"
-- name: "enhancement"
-  color: "a2eeef"
-  description: "New feature or enhancement"
-- name: "tech-debt"
-  color: "d4c5f9"
-  description: "Technical debt to address"
-- name: "operational"
-  color: "f9d0c4"
-  description: "Operational or infrastructure issue"
+# Sync to repos using github-label-sync or similar tooling.
 
 # Priority
 - name: "priority/critical"
@@ -38,6 +14,20 @@
 - name: "priority/low"
   color: "0e8a16"
   description: "Address when convenient"
+
+# Type
+- name: "type/bug"
+  color: "d73a4a"
+  description: "Something isn't working"
+- name: "type/feature"
+  color: "a2eeef"
+  description: "New feature or enhancement"
+- name: "type/tech-debt"
+  color: "d4c5f9"
+  description: "Technical debt to address"
+- name: "type/operational"
+  color: "f9d0c4"
+  description: "Operational or infrastructure issue"
 
 # Area
 - name: "area/frontend"
@@ -105,38 +95,3 @@
 - name: "ai-assigned"
   color: "3e4b9e"
   description: "Assigned to an AI agent"
-- name: "claude-code-assisted"
-  color: "d4c5f9"
-  description: "PR created or assisted by Claude Code"
-
-# Team
-- name: "team-ada"
-  color: "6f42c1"
-  description: "Team Ada"
-- name: "team-infradevex"
-  color: "0d9488"
-  description: "Team InfraDevEx"
-- name: "team-infra"
-  color: "1a7f72"
-  description: "Team Infra"
-- name: "team-devex"
-  color: "2b67af"
-  description: "Team DevEx"
-- name: "team-lunar"
-  color: "7c8aaa"
-  description: "Team Lunar"
-- name: "team-magenta"
-  color: "ff00ff"
-  description: "Team Magenta"
-- name: "team-mitra"
-  color: "e36209"
-  description: "Team Mitra"
-- name: "team-payspree"
-  color: "2ea44f"
-  description: "Team Payspree"
-- name: "team-sol"
-  color: "f5a623"
-  description: "Team Sol"
-- name: "team-staff"
-  color: "333333"
-  description: "Team Staff"
