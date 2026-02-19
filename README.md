@@ -38,6 +38,8 @@ Four issue form templates are available org-wide:
 | `area/` | frontend, backend, infrastructure, data, integrations |
 | `severity/` | critical, high, medium, low |
 | `status/` | triage, accepted, in-progress, blocked, wont-fix |
+| `bot/` | md-drift, summary, md-first-gen |
+| `ai-*` | ai-candidate, ai-assigned, claude-code-assisted |
 
 ## Contributing
 
