@@ -43,7 +43,7 @@ Four issue form templates are available org-wide:
 | `status/` | prefixed | triage, accepted, in-progress, blocked, wont-fix |
 | `bot/` | prefixed | md-drift, summary, md-first-gen |
 | AI | simple | `ai-candidate`, `ai-assigned`, `claude-code-assisted` |
-| Team | simple | `team-ada`, `team-infradevex`, `team-magenta`, etc. |
+| Team | simple | `team-xxx`, `team-xyz`, etc. |
 
 ### Managing Labels
 
